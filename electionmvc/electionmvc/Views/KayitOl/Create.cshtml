@@ -1,0 +1,98 @@
+﻿@model electionmvc.Context.tblKisiler
+@{
+    Layout = null;
+}
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Elektronik Seçim Merkezi</title>
+<link rel="shortcut icon" href="~/Images/Logo.png">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
+<style>
+    body{
+        background-color:lightgrey;
+    }
+</style>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <br />
+    <!-- Logo -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12" style="text-align: center;">
+                <img src="~/Images/Logo.png" alt="Logo" style="width:280px;" class="rounded-pill">
+            </div>
+        </div>
+    </div>
+
+    <br>
+    <!-- Kullanıcı Ekleme-->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4 col-12 bg-dark text-white rounded">
+
+                <h2 style="text-align: center; font-size:30px">Kayıt Ol</h2>
+
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <!-- Ad Bölümü-->
+                <div class="form-group mb-3 mt-3">
+                    @Html.ValidationMessageFor(m => m.Ad, "*", new { @class = "text-danger" })
+                    @Html.Label("ad", "Adınız : ")<br>
+                    @Html.EditorFor(m => m.Ad, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+
+                <!-- Soyad Bölümü-->
+                <div class="form-group mb-3 mt-3">
+                    @Html.ValidationMessageFor(m => m.Soyad, "*", new { @class = "text-danger" })
+                    @Html.Label("ad", "Soyadınız : ")<br>
+                    @Html.EditorFor(m => m.Soyad, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+
+                <div class="form-group mb-3 mt-3">
+                    @Html.ValidationMessageFor(m => m.Tc, "*", new { @class = "text-danger" })
+                    @Html.Label("Tc", "TC Kimlik Numarası : ")<br>
+                    @Html.EditorFor(m => m.Tc, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+
+                <div class="mb-3 mt-3">
+                    @Html.ValidationMessageFor(m => m.DogumTarihi, "*", new { @class = "text-danger" })
+                    @Html.Label("dogumtarihi", "Doğum Tarihi : ")<br>
+                    @Html.EditorFor(m => m.DogumTarihi, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+
+                <div class="mb-3 mt-3">
+                    @Html.ValidationMessageFor(m => m.Sifre, "*", new { @class = "text-danger" })
+                    @Html.Label("Sifre", "Sifre : ")<br>
+                    @Html.EditorFor(m => m.Sifre, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+
+                <div class="mb-3 mt-3">
+                    @Html.ValidationMessageFor(m => m.SehirKod, "*", new { @class = "text-danger" })
+                    @Html.Label("Sehir", "Sehir : ")<br>
+                    @Html.DropDownList("SehirKod", null, htmlAttributes: new { @class = "form-control" })
+                </div>
+
+                @Html.Label("kayitson", "Kaydınız bitti mi ?")<br>
+                <div class="form-group">
+                    <center>
+                        <button type="submit" class="btn btn-danger" id="kayitol" value="Create">
+                            Kaydınızı Tamamlayın
+                        </button>
+                    </center>
+                </div>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+    </div>
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+}

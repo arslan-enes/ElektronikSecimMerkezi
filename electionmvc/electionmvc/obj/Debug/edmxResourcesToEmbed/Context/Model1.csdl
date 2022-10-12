@@ -1,0 +1,265 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ElectionDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <ComplexType Name="ALINANOYBILGISINIGETIR_Result">
+    <Property Name="AlinanOy" Type="Int32" />
+  </ComplexType>
+  <ComplexType Name="SECMENBILGISIGETIR_Result">
+    <Property Name="Ad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Soyad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Tc" Type="String" MaxLength="11" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="DogumTarihi" Type="DateTime" Nullable="false" />
+  </ComplexType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="tblAdaylar">
+    <Key>
+      <PropertyRef Name="adayID" />
+    </Key>
+    <Property Name="adayID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="secimID" Type="Int32" Nullable="false" />
+    <Property Name="kisilerID" Type="Int32" Nullable="false" />
+    <Property Name="AlinanOy" Type="Int32" />
+    <NavigationProperty Name="tblKisiler" Relationship="Self.FK_kisilerIDAdaylar" FromRole="tblAdaylar" ToRole="tblKisiler" />
+    <NavigationProperty Name="tblSecim" Relationship="Self.FK_secimID" FromRole="tblAdaylar" ToRole="tblSecim" />
+  </EntityType>
+  <EntityType Name="tblKisiler">
+    <Key>
+      <PropertyRef Name="kisilerID" />
+    </Key>
+    <Property Name="kisilerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Ad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Soyad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Tc" Type="String" MaxLength="11" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="DogumTarihi" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Sifre" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="SehirKod" Type="Int32" />
+    <NavigationProperty Name="tblAdaylars" Relationship="Self.FK_kisilerIDAdaylar" FromRole="tblKisiler" ToRole="tblAdaylar" />
+    <NavigationProperty Name="tblPozisyonKisilers" Relationship="Self.FK_kisilerID" FromRole="tblKisiler" ToRole="tblPozisyonKisiler" />
+    <NavigationProperty Name="tblSehirler" Relationship="Self.FK_SehirKod" FromRole="tblKisiler" ToRole="tblSehirler" />
+  </EntityType>
+  <EntityType Name="tblPozisyon">
+    <Key>
+      <PropertyRef Name="pozisyonID" />
+    </Key>
+    <Property Name="pozisyon" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="pozisyonID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="tblPozisyonKisilers" Relationship="Self.FK_PozisyonID2" FromRole="tblPozisyon" ToRole="tblPozisyonKisiler" />
+  </EntityType>
+  <EntityType Name="tblPozisyonKisiler">
+    <Key>
+      <PropertyRef Name="pozisyonKisilerID" />
+    </Key>
+    <Property Name="pozisyonKisilerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="pozisyonID" Type="Int32" Nullable="false" />
+    <Property Name="kisilerID" Type="Int32" Nullable="false" />
+    <Property Name="kayitTarihi" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="tblKisiler" Relationship="Self.FK_kisilerID" FromRole="tblPozisyonKisiler" ToRole="tblKisiler" />
+    <NavigationProperty Name="tblPozisyon" Relationship="Self.FK_PozisyonID2" FromRole="tblPozisyonKisiler" ToRole="tblPozisyon" />
+  </EntityType>
+  <EntityType Name="tblSecim">
+    <Key>
+      <PropertyRef Name="secimID" />
+    </Key>
+    <Property Name="secimID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="secimAd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="secimTarihi" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="secimSonTarihi" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="tblAdaylars" Relationship="Self.FK_secimID" FromRole="tblSecim" ToRole="tblAdaylar" />
+  </EntityType>
+  <EntityType Name="tblSehirler">
+    <Key>
+      <PropertyRef Name="SehirKod" />
+    </Key>
+    <Property Name="SehirKod" Type="Int32" Nullable="false" />
+    <Property Name="SehirAd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="SehirBaskan" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="tblKisilers" Relationship="Self.FK_SehirKod" FromRole="tblSehirler" ToRole="tblKisiler" />
+  </EntityType>
+  <EntityType Name="GecmisSecimler">
+    <Key>
+      <PropertyRef Name="secimAd" />
+      <PropertyRef Name="secimTarihi" />
+      <PropertyRef Name="secimSonTarihi" />
+    </Key>
+    <Property Name="secimAd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="secimTarihi" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="secimSonTarihi" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
+  <EntityType Name="GelecekSecimler">
+    <Key>
+      <PropertyRef Name="secimAd" />
+      <PropertyRef Name="secimTarihi" />
+      <PropertyRef Name="secimSonTarihi" />
+    </Key>
+    <Property Name="secimAd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="secimTarihi" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="secimSonTarihi" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
+  <EntityType Name="Secimler">
+    <Key>
+      <PropertyRef Name="secimAd" />
+      <PropertyRef Name="secimTarihi" />
+      <PropertyRef Name="secimSonTarihi" />
+    </Key>
+    <Property Name="secimAd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="secimTarihi" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="secimSonTarihi" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
+  <Association Name="FK_kisilerIDAdaylar">
+    <End Role="tblKisiler" Type="Self.tblKisiler" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="tblAdaylar" Type="Self.tblAdaylar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblKisiler">
+        <PropertyRef Name="kisilerID" />
+      </Principal>
+      <Dependent Role="tblAdaylar">
+        <PropertyRef Name="kisilerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_secimID">
+    <End Role="tblSecim" Type="Self.tblSecim" Multiplicity="1" />
+    <End Role="tblAdaylar" Type="Self.tblAdaylar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblSecim">
+        <PropertyRef Name="secimID" />
+      </Principal>
+      <Dependent Role="tblAdaylar">
+        <PropertyRef Name="secimID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_kisilerID">
+    <End Role="tblKisiler" Type="Self.tblKisiler" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="tblPozisyonKisiler" Type="Self.tblPozisyonKisiler" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblKisiler">
+        <PropertyRef Name="kisilerID" />
+      </Principal>
+      <Dependent Role="tblPozisyonKisiler">
+        <PropertyRef Name="kisilerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SehirKod">
+    <End Role="tblSehirler" Type="Self.tblSehirler" Multiplicity="0..1" />
+    <End Role="tblKisiler" Type="Self.tblKisiler" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblSehirler">
+        <PropertyRef Name="SehirKod" />
+      </Principal>
+      <Dependent Role="tblKisiler">
+        <PropertyRef Name="SehirKod" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PozisyonID2">
+    <End Role="tblPozisyon" Type="Self.tblPozisyon" Multiplicity="1" />
+    <End Role="tblPozisyonKisiler" Type="Self.tblPozisyonKisiler" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblPozisyon">
+        <PropertyRef Name="pozisyonID" />
+      </Principal>
+      <Dependent Role="tblPozisyonKisiler">
+        <PropertyRef Name="pozisyonID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ElectionDatabaseEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="tblAdaylars" EntityType="Self.tblAdaylar" />
+    <EntitySet Name="tblKisilers" EntityType="Self.tblKisiler" />
+    <EntitySet Name="tblPozisyons" EntityType="Self.tblPozisyon" />
+    <EntitySet Name="tblPozisyonKisilers" EntityType="Self.tblPozisyonKisiler" />
+    <EntitySet Name="tblSecims" EntityType="Self.tblSecim" />
+    <EntitySet Name="tblSehirlers" EntityType="Self.tblSehirler" />
+    <EntitySet Name="GecmisSecimlers" EntityType="Self.GecmisSecimler" />
+    <EntitySet Name="GelecekSecimlers" EntityType="Self.GelecekSecimler" />
+    <EntitySet Name="Secimlers" EntityType="Self.Secimler" />
+    <AssociationSet Name="FK_kisilerIDAdaylar" Association="Self.FK_kisilerIDAdaylar">
+      <End Role="tblKisiler" EntitySet="tblKisilers" />
+      <End Role="tblAdaylar" EntitySet="tblAdaylars" />
+    </AssociationSet>
+    <AssociationSet Name="FK_secimID" Association="Self.FK_secimID">
+      <End Role="tblSecim" EntitySet="tblSecims" />
+      <End Role="tblAdaylar" EntitySet="tblAdaylars" />
+    </AssociationSet>
+    <AssociationSet Name="FK_kisilerID" Association="Self.FK_kisilerID">
+      <End Role="tblKisiler" EntitySet="tblKisilers" />
+      <End Role="tblPozisyonKisiler" EntitySet="tblPozisyonKisilers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SehirKod" Association="Self.FK_SehirKod">
+      <End Role="tblSehirler" EntitySet="tblSehirlers" />
+      <End Role="tblKisiler" EntitySet="tblKisilers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PozisyonID2" Association="Self.FK_PozisyonID2">
+      <End Role="tblPozisyon" EntitySet="tblPozisyons" />
+      <End Role="tblPozisyonKisiler" EntitySet="tblPozisyonKisilers" />
+    </AssociationSet>
+    <FunctionImport Name="ALINANOYBILGISINIGETIR" IsComposable="true" ReturnType="Collection(ElectionDatabaseModel.ALINANOYBILGISINIGETIR_Result)">
+      <Parameter Name="adayID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SECMENBILGISIGETIR" IsComposable="true" ReturnType="Collection(ElectionDatabaseModel.SECMENBILGISIGETIR_Result)">
+      <Parameter Name="Tc" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="secimSutunDoldur">
+      <Parameter Name="secimAd" Mode="In" Type="String" />
+      <Parameter Name="secimTarihi" Mode="In" Type="DateTime" />
+      <Parameter Name="secimSonTarihi" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="SP_AdaylikVer">
+      <Parameter Name="tc" Mode="In" Type="String" />
+      <Parameter Name="secimID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SP_KisiBilgileriniDoldur">
+      <Parameter Name="Ad" Mode="In" Type="String" />
+      <Parameter Name="Soyad" Mode="In" Type="String" />
+      <Parameter Name="Tc" Mode="In" Type="String" />
+      <Parameter Name="DogumTarihi" Mode="In" Type="DateTime" />
+      <Parameter Name="Sifre" Mode="In" Type="String" />
+      <Parameter Name="SehirKod" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+  </EntityContainer>
+</Schema>

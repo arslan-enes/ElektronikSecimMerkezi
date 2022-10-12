@@ -1,0 +1,288 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ElectionDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="tblAdaylar">
+    <Key>
+      <PropertyRef Name="adayID" />
+    </Key>
+    <Property Name="adayID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="secimID" Type="int" Nullable="false" />
+    <Property Name="kisilerID" Type="int" Nullable="false" />
+    <Property Name="AlinanOy" Type="int" />
+  </EntityType>
+  <EntityType Name="tblKisiler">
+    <Key>
+      <PropertyRef Name="kisilerID" />
+    </Key>
+    <Property Name="kisilerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Ad" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Soyad" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Tc" Type="nvarchar" MaxLength="11" Nullable="false" />
+    <Property Name="DogumTarihi" Type="datetime" Nullable="false" />
+    <Property Name="Sifre" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="SehirKod" Type="int" />
+  </EntityType>
+  <EntityType Name="tblPozisyon">
+    <Key>
+      <PropertyRef Name="pozisyonID" />
+    </Key>
+    <Property Name="pozisyon" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="pozisyonID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tblPozisyonKisiler">
+    <Key>
+      <PropertyRef Name="pozisyonKisilerID" />
+    </Key>
+    <Property Name="pozisyonKisilerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="pozisyonID" Type="int" Nullable="false" />
+    <Property Name="kisilerID" Type="int" Nullable="false" />
+    <Property Name="kayitTarihi" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tblSecim">
+    <Key>
+      <PropertyRef Name="secimID" />
+    </Key>
+    <Property Name="secimID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="secimAd" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="secimTarihi" Type="datetime" Nullable="false" />
+    <Property Name="secimSonTarihi" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tblSehirler">
+    <Key>
+      <PropertyRef Name="SehirKod" />
+    </Key>
+    <Property Name="SehirKod" Type="int" Nullable="false" />
+    <Property Name="SehirAd" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="SehirBaskan" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'ElectionDatabase.dbo.GecmisSecimler' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="GecmisSecimler">
+    <Key>
+      <PropertyRef Name="secimAd" />
+      <PropertyRef Name="secimTarihi" />
+      <PropertyRef Name="secimSonTarihi" />
+    </Key>
+    <Property Name="secimAd" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="secimTarihi" Type="datetime" Nullable="false" />
+    <Property Name="secimSonTarihi" Type="datetime" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'ElectionDatabase.dbo.GelecekSecimler' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="GelecekSecimler">
+    <Key>
+      <PropertyRef Name="secimAd" />
+      <PropertyRef Name="secimTarihi" />
+      <PropertyRef Name="secimSonTarihi" />
+    </Key>
+    <Property Name="secimAd" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="secimTarihi" Type="datetime" Nullable="false" />
+    <Property Name="secimSonTarihi" Type="datetime" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'ElectionDatabase.dbo.Secimler' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Secimler">
+    <Key>
+      <PropertyRef Name="secimAd" />
+      <PropertyRef Name="secimTarihi" />
+      <PropertyRef Name="secimSonTarihi" />
+    </Key>
+    <Property Name="secimAd" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="secimTarihi" Type="datetime" Nullable="false" />
+    <Property Name="secimSonTarihi" Type="datetime" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_kisilerID">
+    <End Role="tblKisiler" Type="Self.tblKisiler" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="tblPozisyonKisiler" Type="Self.tblPozisyonKisiler" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblKisiler">
+        <PropertyRef Name="kisilerID" />
+      </Principal>
+      <Dependent Role="tblPozisyonKisiler">
+        <PropertyRef Name="kisilerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_kisilerIDAdaylar">
+    <End Role="tblKisiler" Type="Self.tblKisiler" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="tblAdaylar" Type="Self.tblAdaylar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblKisiler">
+        <PropertyRef Name="kisilerID" />
+      </Principal>
+      <Dependent Role="tblAdaylar">
+        <PropertyRef Name="kisilerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PozisyonID2">
+    <End Role="tblPozisyon" Type="Self.tblPozisyon" Multiplicity="1" />
+    <End Role="tblPozisyonKisiler" Type="Self.tblPozisyonKisiler" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblPozisyon">
+        <PropertyRef Name="pozisyonID" />
+      </Principal>
+      <Dependent Role="tblPozisyonKisiler">
+        <PropertyRef Name="pozisyonID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_secimID">
+    <End Role="tblSecim" Type="Self.tblSecim" Multiplicity="1" />
+    <End Role="tblAdaylar" Type="Self.tblAdaylar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblSecim">
+        <PropertyRef Name="secimID" />
+      </Principal>
+      <Dependent Role="tblAdaylar">
+        <PropertyRef Name="secimID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SehirKod">
+    <End Role="tblSehirler" Type="Self.tblSehirler" Multiplicity="0..1" />
+    <End Role="tblKisiler" Type="Self.tblKisiler" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblSehirler">
+        <PropertyRef Name="SehirKod" />
+      </Principal>
+      <Dependent Role="tblKisiler">
+        <PropertyRef Name="SehirKod" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="ALINANOYBILGISINIGETIR" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="adayID" Type="int" Mode="In" />
+    <ReturnType>
+      <CollectionType>
+        <RowType>
+          <Property Name="AlinanOy" Type="int" />
+        </RowType>
+      </CollectionType>
+    </ReturnType>
+  </Function>
+  <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+  <Function Name="secimSutunDoldur" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="secimAd" Type="nvarchar" Mode="In" />
+    <Parameter Name="secimTarihi" Type="datetime" Mode="In" />
+    <Parameter Name="secimSonTarihi" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="SECMENBILGISIGETIR" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Tc" Type="nvarchar" Mode="In" />
+    <ReturnType>
+      <CollectionType>
+        <RowType>
+          <Property Name="Ad" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Soyad" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Tc" Type="nvarchar" MaxLength="11" Nullable="false" />
+          <Property Name="DogumTarihi" Type="datetime" Nullable="false" />
+        </RowType>
+      </CollectionType>
+    </ReturnType>
+  </Function>
+  <Function Name="SP_AdaylikVer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="tc" Type="nvarchar" Mode="In" />
+    <Parameter Name="secimID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_KisiBilgileriniDoldur" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Ad" Type="varchar" Mode="In" />
+    <Parameter Name="Soyad" Type="varchar" Mode="In" />
+    <Parameter Name="Tc" Type="nvarchar" Mode="In" />
+    <Parameter Name="DogumTarihi" Type="datetime" Mode="In" />
+    <Parameter Name="Sifre" Type="nvarchar" Mode="In" />
+    <Parameter Name="SehirKod" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <EntityContainer Name="ElectionDatabaseModelStoreContainer">
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblAdaylar" EntityType="Self.tblAdaylar" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblKisiler" EntityType="Self.tblKisiler" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblPozisyon" EntityType="Self.tblPozisyon" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblPozisyonKisiler" EntityType="Self.tblPozisyonKisiler" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblSecim" EntityType="Self.tblSecim" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblSehirler" EntityType="Self.tblSehirler" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GecmisSecimler" EntityType="Self.GecmisSecimler" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [GecmisSecimler].[secimAd] AS [secimAd], 
+    [GecmisSecimler].[secimTarihi] AS [secimTarihi], 
+    [GecmisSecimler].[secimSonTarihi] AS [secimSonTarihi]
+    FROM [dbo].[GecmisSecimler] AS [GecmisSecimler]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="GelecekSecimler" EntityType="Self.GelecekSecimler" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [GelecekSecimler].[secimAd] AS [secimAd], 
+    [GelecekSecimler].[secimTarihi] AS [secimTarihi], 
+    [GelecekSecimler].[secimSonTarihi] AS [secimSonTarihi]
+    FROM [dbo].[GelecekSecimler] AS [GelecekSecimler]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Secimler" EntityType="Self.Secimler" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Secimler].[secimAd] AS [secimAd], 
+    [Secimler].[secimTarihi] AS [secimTarihi], 
+    [Secimler].[secimSonTarihi] AS [secimSonTarihi]
+    FROM [dbo].[Secimler] AS [Secimler]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_kisilerID" Association="Self.FK_kisilerID">
+      <End Role="tblKisiler" EntitySet="tblKisiler" />
+      <End Role="tblPozisyonKisiler" EntitySet="tblPozisyonKisiler" />
+    </AssociationSet>
+    <AssociationSet Name="FK_kisilerIDAdaylar" Association="Self.FK_kisilerIDAdaylar">
+      <End Role="tblKisiler" EntitySet="tblKisiler" />
+      <End Role="tblAdaylar" EntitySet="tblAdaylar" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PozisyonID2" Association="Self.FK_PozisyonID2">
+      <End Role="tblPozisyon" EntitySet="tblPozisyon" />
+      <End Role="tblPozisyonKisiler" EntitySet="tblPozisyonKisiler" />
+    </AssociationSet>
+    <AssociationSet Name="FK_secimID" Association="Self.FK_secimID">
+      <End Role="tblSecim" EntitySet="tblSecim" />
+      <End Role="tblAdaylar" EntitySet="tblAdaylar" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SehirKod" Association="Self.FK_SehirKod">
+      <End Role="tblSehirler" EntitySet="tblSehirler" />
+      <End Role="tblKisiler" EntitySet="tblKisiler" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

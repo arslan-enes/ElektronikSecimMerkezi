@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ElectionDatabaseModelStoreContainer" CdmEntityContainer="ElectionDatabaseEntities1">
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="ElectionDatabaseModel.sysdiagram">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblAdaylars">
+      <EntityTypeMapping TypeName="ElectionDatabaseModel.tblAdaylar">
+        <MappingFragment StoreEntitySet="tblAdaylar">
+          <ScalarProperty Name="adayID" ColumnName="adayID" />
+          <ScalarProperty Name="secimID" ColumnName="secimID" />
+          <ScalarProperty Name="kisilerID" ColumnName="kisilerID" />
+          <ScalarProperty Name="AlinanOy" ColumnName="AlinanOy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblKisilers">
+      <EntityTypeMapping TypeName="ElectionDatabaseModel.tblKisiler">
+        <MappingFragment StoreEntitySet="tblKisiler">
+          <ScalarProperty Name="kisilerID" ColumnName="kisilerID" />
+          <ScalarProperty Name="Ad" ColumnName="Ad" />
+          <ScalarProperty Name="Soyad" ColumnName="Soyad" />
+          <ScalarProperty Name="Tc" ColumnName="Tc" />
+          <ScalarProperty Name="DogumTarihi" ColumnName="DogumTarihi" />
+          <ScalarProperty Name="Sifre" ColumnName="Sifre" />
+          <ScalarProperty Name="SehirKod" ColumnName="SehirKod" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblPozisyons">
+      <EntityTypeMapping TypeName="ElectionDatabaseModel.tblPozisyon">
+        <MappingFragment StoreEntitySet="tblPozisyon">
+          <ScalarProperty Name="pozisyon" ColumnName="pozisyon" />
+          <ScalarProperty Name="pozisyonID" ColumnName="pozisyonID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblPozisyonKisilers">
+      <EntityTypeMapping TypeName="ElectionDatabaseModel.tblPozisyonKisiler">
+        <MappingFragment StoreEntitySet="tblPozisyonKisiler">
+          <ScalarProperty Name="pozisyonKisilerID" ColumnName="pozisyonKisilerID" />
+          <ScalarProperty Name="pozisyonID" ColumnName="pozisyonID" />
+          <ScalarProperty Name="kisilerID" ColumnName="kisilerID" />
+          <ScalarProperty Name="kayitTarihi" ColumnName="kayitTarihi" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblSecims">
+      <EntityTypeMapping TypeName="ElectionDatabaseModel.tblSecim">
+        <MappingFragment StoreEntitySet="tblSecim">
+          <ScalarProperty Name="secimID" ColumnName="secimID" />
+          <ScalarProperty Name="secimAd" ColumnName="secimAd" />
+          <ScalarProperty Name="secimTarihi" ColumnName="secimTarihi" />
+          <ScalarProperty Name="secimSonTarihi" ColumnName="secimSonTarihi" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblSehirlers">
+      <EntityTypeMapping TypeName="ElectionDatabaseModel.tblSehirler">
+        <MappingFragment StoreEntitySet="tblSehirler">
+          <ScalarProperty Name="SehirKod" ColumnName="SehirKod" />
+          <ScalarProperty Name="SehirAd" ColumnName="SehirAd" />
+          <ScalarProperty Name="SehirBaskan" ColumnName="SehirBaskan" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GecmisSecimlers">
+      <EntityTypeMapping TypeName="ElectionDatabaseModel.GecmisSecimler">
+        <MappingFragment StoreEntitySet="GecmisSecimler">
+          <ScalarProperty Name="secimAd" ColumnName="secimAd" />
+          <ScalarProperty Name="secimTarihi" ColumnName="secimTarihi" />
+          <ScalarProperty Name="secimSonTarihi" ColumnName="secimSonTarihi" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GelecekSecimlers">
+      <EntityTypeMapping TypeName="ElectionDatabaseModel.GelecekSecimler">
+        <MappingFragment StoreEntitySet="GelecekSecimler">
+          <ScalarProperty Name="secimAd" ColumnName="secimAd" />
+          <ScalarProperty Name="secimTarihi" ColumnName="secimTarihi" />
+          <ScalarProperty Name="secimSonTarihi" ColumnName="secimSonTarihi" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Secimlers">
+      <EntityTypeMapping TypeName="ElectionDatabaseModel.Secimler">
+        <MappingFragment StoreEntitySet="Secimler">
+          <ScalarProperty Name="secimAd" ColumnName="secimAd" />
+          <ScalarProperty Name="secimTarihi" ColumnName="secimTarihi" />
+          <ScalarProperty Name="secimSonTarihi" ColumnName="secimSonTarihi" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionName="ElectionDatabaseModel.Store.ALINANOYBILGISINIGETIR" FunctionImportName="ALINANOYBILGISINIGETIR">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="ElectionDatabaseModel.ALINANOYBILGISINIGETIR_Result">
+          <ScalarProperty Name="AlinanOy" ColumnName="AlinanOy" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionName="ElectionDatabaseModel.Store.SECMENBILGISIGETIR" FunctionImportName="SECMENBILGISIGETIR">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="ElectionDatabaseModel.SECMENBILGISIGETIR_Result">
+          <ScalarProperty Name="Ad" ColumnName="Ad" />
+          <ScalarProperty Name="Soyad" ColumnName="Soyad" />
+          <ScalarProperty Name="Tc" ColumnName="Tc" />
+          <ScalarProperty Name="DogumTarihi" ColumnName="DogumTarihi" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="secimSutunDoldur" FunctionName="ElectionDatabaseModel.Store.secimSutunDoldur" />
+    <FunctionImportMapping FunctionImportName="SP_AdaylikVer" FunctionName="ElectionDatabaseModel.Store.SP_AdaylikVer" />
+    <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="ElectionDatabaseModel.Store.sp_alterdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="ElectionDatabaseModel.Store.sp_creatediagram" />
+    <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="ElectionDatabaseModel.Store.sp_dropdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="ElectionDatabaseModel.Store.sp_helpdiagramdefinition" />
+    <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="ElectionDatabaseModel.Store.sp_helpdiagrams" />
+    <FunctionImportMapping FunctionImportName="SP_KisiBilgileriniDoldur" FunctionName="ElectionDatabaseModel.Store.SP_KisiBilgileriniDoldur" />
+    <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="ElectionDatabaseModel.Store.sp_renamediagram" />
+    <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="ElectionDatabaseModel.Store.sp_upgraddiagrams" />
+  </EntityContainerMapping>
+</Mapping>

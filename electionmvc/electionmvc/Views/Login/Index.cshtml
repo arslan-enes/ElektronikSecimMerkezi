@@ -1,0 +1,70 @@
+﻿@model electionmvc.Context.tblKisiler
+@{
+    Layout = null;
+}
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Elektronik Seçim Merkezi</title>
+<link rel="shortcut icon" href="~/Images/Logo.png">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
+
+@using (Html.BeginForm("Authorize", "Login", FormMethod.Post))
+{
+    <body style="background-color: lightgrey;">
+        <br />
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12" style="text-align: center;">
+                    <img src="~/Images/Logo.png" alt="Logo" style="width:280px;" class="rounded-pill">
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-md-4 col-12 bg-dark text-white rounded">
+                    <br>
+                    <h2 style="text-align: center;">Giriş Yap</h2>
+
+                    @Html.HiddenFor(m => m.kisilerID)
+                    @Html.ValidationSummary(true,"", new { @class = "text-danger" })
+                <div class="form-group mb-3 mt-3">
+
+                    @Html.Label("Tc", "TC Kimlik Numarası : ")<br>
+                    @Html.EditorFor(m => m.Tc, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Tc, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="mb-3 mt-3">
+                    @Html.Label("Sifre", "Sifre : ")<br>
+                    @Html.EditorFor(m => m.Sifre, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Sifre, "", new { @class = "text-danger" })
+                </div>
+
+                    <center>
+                        <button type="submit" class="btn btn-danger" value="Login">Giriş Yap</button>
+                    </center>
+
+                    <br>
+                    <div class="mb-3">
+                        @Html.Label("kayitol", "Hesabınız Yokmu ?")<br>
+                        <button class="btn btn-danger">@Html.ActionLink("Kayıt Ol", "Create", "KayitOl", 0, new { @style = "text-decoration:none; color:white;" })</button>
+                    </div>
+                    <br>
+                    <br>
+                </div>
+                <div class="col-md-4"></div>
+            </div>
+        </div>
+    </body>
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+}
+

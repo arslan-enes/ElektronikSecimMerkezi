@@ -1,0 +1,155 @@
+﻿@model IEnumerable<electionmvc.Context.tblKisiler>
+
+@{
+    Layout = null;
+    if (Session["UserID"] == null || Session["userFirstName"] == null || Session["userFirstName"] == null)
+    {
+        Response.Redirect("~/login/index");
+    }
+    var ad = Session["userFirstName"];
+    var soyad = Session["userLastName"];
+}
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Elektronik Seçim Merkezi</title>
+<link rel="shortcut icon" href="assets/images/Logo.png">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
+<style>
+    body {
+        background-color: lightgrey;
+    }
+</style>
+<!-- Header Başlangıcı -->
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <div class="container-fluid">
+        <img src="~/Images/Logo.png" alt="Logo" style="width:120px;" class="rounded-pill">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+            <ul class="navbar-nav">
+                <li class="nav-item" style="margin-left:20px; font-size:18px">
+                    @Html.ActionLink("Anasayfa", "Index", "Admin", 0, new { @style = "text-decoration:none; color:white;" })
+                </li>
+                <li class="nav-item" style="margin-left:20px; font-size:18px">
+                    @Html.ActionLink("Seçim Ekle", "SecimEkle", "Admin", 0, new { @style = "text-decoration:none; color:white;" })
+                </li>
+                <li class="nav-item" style="margin-left:20px; font-size:18px">
+                    @Html.ActionLink("Aday Ekle", "AdayEkle", "Admin", 0, new { @style = "text-decoration:none; color:white;" })
+                </li>
+                <li class="nav-item" style="margin-left:20px; font-size:18px">
+                    @Html.ActionLink("Çıkış Yap", "Index", "Login", 0, new { @style = "text-decoration:none; color:red;" })
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid bg-danger" style="margin-top:10px; margin-bottom:10px; min-height:660px; padding-top:10px;">
+    <div class="row">
+        <div class="col-4"></div>
+        <div class="col-12 col-md-4 text-dark" style="font-size:28px; font-weight:bold;"><center> Hoşgeldiniz @ad</center></div>
+        <div class="col-4"></div>
+    </div>
+    <div class="row">
+        @if (Model != null)
+        {
+            foreach (var item in Model)
+            {
+                if (item.Ad == "Admin") { continue; }
+                <div class="col-12 col-md-3 bg-dark" style="margin-top:10px; margin-bottom:10px; border:1px solid red;">
+                    <div class="card-body text-white">
+                        <center>
+                            <!-- Seçmen Resim Başlangıç-->
+                            <img src="~/Images/avatar.png" alt="Avatar" style="width: 100%;">
+                            <!-- Seçmen Resim Bitiş-->
+                            <div class="row" style="margin-top: 5px;">
+                                <div class="col-6" style="border: 1px solid red;">
+                                    <h6 class="card-title">TC Kimlik No :</h6>
+                                </div>
+                                <div class="col-6" style="border: 1px solid red;">
+                                    @Html.DisplayFor(m => item.Tc, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                            </div>
+                            <!-- Seçmen Adı Başlangıç-->
+                            <div class="row">
+                                <div class="col-6" style="border: 1px solid red;">
+                                    <h6 class="card-title">Ad :</h6>
+                                </div>
+                                <div class="col-6" style="border: 1px solid red;">
+                                    @Html.DisplayFor(m => item.Ad, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                            </div>
+                            <!-- Seçmen Adı Bitiş-->
+                            <!-- Seçmen Soyadı Başlangıç-->
+                            <div class="row">
+                                <div class="col-6" style="border: 1px solid red;">
+                                    <h6 class="card-title">Soyad :</h6>
+                                </div>
+                                <div class="col-6" style="border: 1px solid red;">
+                                    @Html.DisplayFor(m => item.Soyad, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                            </div>
+                            <!-- Seçmen Soyadı Bitiş-->
+                            <!-- Seçmen Doğum Tarihi Başlangıç-->
+                            <div class="row">
+                                <div class="col-6" style="border: 1px solid red;">
+                                    <h6 class="card-title">D.Tarih :</h6>
+                                </div>
+                                <div class="col-6" style="border: 1px solid red;">
+                                    @Html.DisplayFor(m => item.DogumTarihi.Day, new { htmlAttributes = new { @class = "form-control" } })/
+                                    @Html.DisplayFor(m => item.DogumTarihi.Month, new { htmlAttributes = new { @class = "form-control" } })/
+                                    @Html.DisplayFor(m => item.DogumTarihi.Year, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                            </div>
+                            <!-- Seçmen Doğum Tarihi Bitiş-->
+                            <!-- Seçmen Şehir Başlangıç-->
+                            <div class="row">
+                                <div class="col-6" style="border: 1px solid red;">
+                                    <h6 class="card-title">Şehir :</h6>
+                                </div>
+                                <div class="col-6" style="border: 1px solid red;">
+                                    @Html.DisplayFor(m => item.tblSehirler.SehirAd, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                            </div>
+                            <!-- Seçmen Şehir Bitiş-->
+                            <br>
+                        </center>
+                    </div>
+                </div>
+            }
+        }
+
+    </div>
+</div>
+
+<!-- Footer Başlangıç-->
+<footer class="bg-dark text-center text-white" style="margin-top: 10px;">
+    <div class="container p-4 pb-0">
+        <section class="mb-4">
+            <!-- Facebook -->
+            <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+
+            <!-- Twitter -->
+            <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button">
+                <i class="fab fa-twitter"></i>
+            </a>
+
+            <!-- Instagram -->
+            <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <!-- Section: Social media -->
+    </div>
+
+    <!-- Copyright -->
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+        © 2021 Copyright: Elektronik Seçim Merkezi
+    </div>
+    <!-- Copyright -->
+</footer>
+<!-- Footer Bitiş-->
